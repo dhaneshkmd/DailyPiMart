@@ -11,7 +11,12 @@
     <script>
       // Initialize the SDK in sandbox mode for development/testing
       // This must be done to interact with the Pi Testnet.
-      window.Pi.init({ version: "2.0", sandbox: true });
+      // A check is added to ensure window.Pi exists before calling init.
+      if (window.Pi) {
+        window.Pi.init({ version: "2.0", sandbox: true });
+      } else {
+        console.error("Pi SDK failed to load.");
+      }
     </script>
 <script type="importmap">
 {
