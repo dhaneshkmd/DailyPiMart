@@ -27,9 +27,16 @@ export const useAuthStore = create<AuthState>()(
 );
 
 export const verifyPiAuth = async (accessToken: string, user: { uid: string; username: string }): Promise<User> => {
-    console.log(`[AUTH MOCK] Verifying auth for ${user.username} with token ${accessToken}`);
-    // In a real app, you would send the accessToken to your server, which verifies it with Pi's /me endpoint.
-    // For this mock, we'll just accept it and create a user session.
+    console.log(`[AUTH MOCK] Verifying auth for ${user.username}`);
+    
+    // SECURITY NOTE (as per Pi Platform Docs):
+    // The accessToken received on the client is NOT the source of truth.
+    // It MUST be sent to your application's backend server.
+    // Your server then makes a secure API call to the Pi `/me` endpoint
+    // using this token in the Authorization header: `Authorization: Bearer ${accessToken}`.
+    // If the Pi server returns a valid user, only then should you create a session.
+    // This mock simulates that server-side verification.
+    
     await new Promise(resolve => setTimeout(resolve, 500));
     return {
         id: `user_${user.uid}`,

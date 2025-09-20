@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { usePiSDKReady } from '../hooks/usePiSDKReady';
 import { approvePayment, completePayment } from '../services/piAPI';
@@ -34,15 +33,22 @@ const PiPayButton: React.FC<PiPayButtonProps> = ({ amount, orderId, memo, onPaym
 
     try {
       window.Pi.createPayment(paymentData, {
+        // onReadyForServerApproval is called when the payment is created on the Pi Server.
+        // The client's job is to send the `paymentId` to its OWN backend server.
+        // The backend server then calls the Pi API to approve the payment.
         onReadyForServerApproval: async (paymentId: string) => {
-          console.log('onReadyForServerApproval', paymentId);
+          console.log('Client received onReadyForServerApproval with paymentId:', paymentId);
+          // This function now represents a fetch call to your own backend.
           await approvePayment(paymentId);
         },
+        // onReadyForServerCompletion is called after the user signs the transaction.
+        // The client's job is to send the `paymentId` and `txid` to its OWN backend.
+        // The backend then calls the Pi API to complete the payment.
         onReadyForServerCompletion: async (paymentId: string, txid: string) => {
-          console.log('onReadyForServerCompletion', paymentId, txid);
+          console.log('Client received onReadyForServerCompletion with paymentId and txid:', paymentId, txid);
+          // This function now represents a fetch call to your own backend.
           await completePayment(paymentId, txid);
           onPaymentSuccess(txid);
-          // Typically navigate to an order success page
           navigate('/orders'); 
         },
         onCancelled: () => {
