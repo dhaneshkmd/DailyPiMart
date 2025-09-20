@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Pi Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Mock Pi SDK for development in regular browsers
+      // In the real Pi Browser, window.Pi is provided by the environment.
+      setTimeout(() => {
+        if (!window.Pi) {
+          console.log("Mocking Pi SDK for development.");
+          window.Pi = {
+            authenticate: async (scopes, onIncompletePaymentFound) => {
+              console.log("Pi.authenticate called with:", scopes);
+              return {
+                accessToken: "mock_access_token_123",
+                user: {
+                  uid: "mock-user-id-abc",
+                  username: "testuser",
+                },
+              };
+            },
+            createPayment: async (paymentData, callbacks) => {
+              console.log("Pi.createPayment called with:", paymentData);
+              const mockPaymentId = `mock_payment_${Date.now()}`;
+              const mockTxid = `mock_txid_${Date.now()}`;
+              
+              try {
+                // Simulate the payment flow
+                console.log("Calling onReadyForServerApproval...");
+                await callbacks.onReadyForServerApproval(mockPaymentId);
+                
+                // Simulate a delay for server processing
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                console.log("Calling onReadyForServerCompletion...");
+                await callbacks.onReadyForServerCompletion(mockPaymentId, mockTxid);
+              } catch (error) {
+                console.error("Mock payment flow error:", error);
+                callbacks.onError(error);
+              }
+            },
+          };
+        }
+      }, 2000); // Delay to simulate SDK loading
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "zustand/": "https://aistudiocdn.com/zustand@^5.0.8/",
+    "zustand": "https://aistudiocdn.com/zustand@^5.0.8",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.544.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-50 text-gray-800">
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Daily Pi Mart",
+  "description": "Daily Pi Mart is a Pi-powered marketplace that works inside the Pi Browser, allowing users to log in and make payments using Pi. It features product browsing, a shopping cart, and an order history system, all designed for the Pi Network ecosystem.",
+  "requestFramePermissions": []
+}
