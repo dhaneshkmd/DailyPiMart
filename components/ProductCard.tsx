@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Product } from '../types';
 
 interface ProductCardProps {
@@ -9,7 +11,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Link to={`/product/${product.slug}`} className="group block overflow-hidden border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+    <ReactRouterDOM.Link to={`/product/${product.slug}`} className="group block overflow-hidden border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
       <div className="relative h-64">
         <img
           src={product.images[0]}
@@ -25,6 +27,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded">View Details</span>
         </div>
       </div>
-    </Link>
+    </ReactRouterDOM.Link>
   );
 };

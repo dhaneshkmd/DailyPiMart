@@ -1,7 +1,9 @@
 
+
 import React from 'react';
 import { useCartStore } from '../hooks/useCart';
-import { Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 
 const CartPage: React.FC = () => {
@@ -12,9 +14,9 @@ const CartPage: React.FC = () => {
       <div className="text-center py-20">
         <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
         <p className="text-gray-600 mb-8">Looks like you haven't added anything to your cart yet.</p>
-        <Link to="/products" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
+        <ReactRouterDOM.Link to="/products" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
           Start Shopping
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     );
   }
@@ -54,9 +56,9 @@ const CartPage: React.FC = () => {
         </div>
       </div>
       <div className="text-right">
-        <Link to="/checkout" className="bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition">
+        <ReactRouterDOM.Link to="/checkout" className="bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-600 transition">
           Proceed to Checkout
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     </div>
   );

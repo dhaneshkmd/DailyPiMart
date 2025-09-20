@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { MOCK_PRODUCTS } from '../constants';
 import { ProductCard } from '../components/ProductCard';
 
@@ -14,12 +16,12 @@ const HomePage: React.FC = () => {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
           Your one-stop shop for fresh fruits, vegetables, dairy, and pantry staples, powered by the Pi Network.
         </p>
-        <Link
+        <ReactRouterDOM.Link
           to="/products"
           className="inline-block bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition-colors duration-300"
         >
           Shop Now
-        </Link>
+        </ReactRouterDOM.Link>
       </section>
 
       <section className="py-12">

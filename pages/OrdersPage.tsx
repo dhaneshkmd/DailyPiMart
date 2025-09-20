@@ -1,7 +1,9 @@
 
+
 import React from 'react';
 import { useAuthStore } from '../services/authService';
-import { Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 
 const OrdersPage: React.FC = () => {
     const { isAuthenticated } = useAuthStore();
@@ -11,9 +13,9 @@ const OrdersPage: React.FC = () => {
              <div className="text-center py-20">
                 <h1 className="text-3xl font-bold mb-4">Please Sign In</h1>
                 <p className="text-gray-600 mb-8">You need to be logged in to view your orders.</p>
-                <Link to="/account" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
+                <ReactRouterDOM.Link to="/account" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
                     Go to Account Page
-                </Link>
+                </ReactRouterDOM.Link>
             </div>
         );
     }

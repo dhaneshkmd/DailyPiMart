@@ -1,14 +1,16 @@
 
+
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { MOCK_PRODUCTS } from '../constants';
 // Fix: Use a default import for NotFoundPage as it is a default export.
 import NotFoundPage from './NotFoundPage';
 import { useCartStore } from '../hooks/useCart';
 
 const ProductPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
+  const { slug } = ReactRouterDOM.useParams<{ slug: string }>();
+  const navigate = ReactRouterDOM.useNavigate();
   const product = MOCK_PRODUCTS.find(p => p.slug === slug);
   const { addItem } = useCartStore();
   const [quantity, setQuantity] = useState(1);

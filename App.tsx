@@ -1,6 +1,9 @@
 
+
+
 import React, { Suspense, lazy } from 'react';
-import { HashRouter, Routes, Route, Outlet, NavLink } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
 
 import { Header } from './components/Header';
@@ -30,24 +33,26 @@ const AppLayout: React.FC = () => {
             {PI_ENV === 'testnet' && <TestnetBadge />}
             <PiBanner />
             <Header>
-                <nav className="flex items-center space-x-6 text-sm font-medium text-gray-600">
-                    <NavLink to="/" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Home</NavLink>
-                    <NavLink to="/products" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Products</NavLink>
-                    <NavLink to="/orders" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Orders</NavLink>
-                    <NavLink to="/account" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Account</NavLink>
-                </nav>
-                 <NavLink to="/cart" className="relative text-gray-600 hover:text-black">
-                    <ShoppingCart size={24} />
-                    {cartItemCount > 0 && (
-                        <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                            {cartItemCount}
-                        </span>
-                    )}
-                </NavLink>
+                <div className="flex items-center gap-6">
+                    <nav className="flex items-center space-x-6 text-sm font-medium text-gray-600">
+                        <ReactRouterDOM.NavLink to="/" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Home</ReactRouterDOM.NavLink>
+                        <ReactRouterDOM.NavLink to="/products" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Products</ReactRouterDOM.NavLink>
+                        <ReactRouterDOM.NavLink to="/orders" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Orders</ReactRouterDOM.NavLink>
+                        <ReactRouterDOM.NavLink to="/account" className={({ isActive }) => isActive ? "text-black" : "hover:text-black"}>Account</ReactRouterDOM.NavLink>
+                    </nav>
+                    <ReactRouterDOM.NavLink to="/cart" className="relative text-gray-600 hover:text-black">
+                        <ShoppingCart size={24} />
+                        {cartItemCount > 0 && (
+                            <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                                {cartItemCount}
+                            </span>
+                        )}
+                    </ReactRouterDOM.NavLink>
+                </div>
             </Header>
             <main className="flex-grow container mx-auto px-4 py-8">
                 <Suspense fallback={<div className="text-center p-10">Loading...</div>}>
-                    <Outlet />
+                    <ReactRouterDOM.Outlet />
                 </Suspense>
             </main>
             <Footer />
@@ -57,21 +62,21 @@ const AppLayout: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="products" element={<BrowsePage />} />
-          <Route path="product/:slug" element={<ProductPage />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="orders" element={<OrdersPage />} />
-          <Route path="account" element={<AccountPage />} />
-          <Route path="legal/:topic" element={<LegalPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </HashRouter>
+    <ReactRouterDOM.HashRouter>
+      <ReactRouterDOM.Routes>
+        <ReactRouterDOM.Route path="/" element={<AppLayout />}>
+          <ReactRouterDOM.Route index element={<HomePage />} />
+          <ReactRouterDOM.Route path="products" element={<BrowsePage />} />
+          <ReactRouterDOM.Route path="product/:slug" element={<ProductPage />} />
+          <ReactRouterDOM.Route path="cart" element={<CartPage />} />
+          <ReactRouterDOM.Route path="checkout" element={<CheckoutPage />} />
+          <ReactRouterDOM.Route path="orders" element={<OrdersPage />} />
+          <ReactRouterDOM.Route path="account" element={<AccountPage />} />
+          <ReactRouterDOM.Route path="legal/:topic" element={<LegalPage />} />
+          <ReactRouterDOM.Route path="*" element={<NotFoundPage />} />
+        </ReactRouterDOM.Route>
+      </ReactRouterDOM.Routes>
+    </ReactRouterDOM.HashRouter>
   );
 };
 

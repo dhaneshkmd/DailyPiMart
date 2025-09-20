@@ -1,14 +1,16 @@
 
+
 import React, { useState } from 'react';
 import { useCartStore } from '../hooks/useCart';
 import { useAuthStore } from '../services/authService';
 import PiPayButton from '../components/PiPayButton';
-import { useNavigate, Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const { items, total, clearCart } = useCartStore();
   const { isAuthenticated, user } = useAuthStore();
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'success' | 'error' | 'cancelled'>('idle');
   const [txid, setTxid] = useState('');
 
@@ -17,9 +19,9 @@ const CheckoutPage: React.FC = () => {
       <div className="text-center py-20">
         <h1 className="text-3xl font-bold mb-4">Please Sign In</h1>
         <p className="text-gray-600 mb-8">You need to be logged in to proceed to checkout.</p>
-        <Link to="/account" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
+        <ReactRouterDOM.Link to="/account" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
           Go to Account Page
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     );
   }
@@ -29,9 +31,9 @@ const CheckoutPage: React.FC = () => {
       <div className="text-center py-20">
         <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
         <p className="text-gray-600 mb-8">Add some items to your cart before checking out.</p>
-        <Link to="/products" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
+        <ReactRouterDOM.Link to="/products" className="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition">
           Browse Products
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Leaf, Facebook, Twitter, Instagram, Send } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -10,10 +12,10 @@ export const Footer: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Column 1: Brand & About */}
                     <div className="space-y-4">
-                        <NavLink to="/" className="flex items-center gap-2 text-xl font-bold text-white">
+                        <ReactRouterDOM.NavLink to="/" className="flex items-center gap-2 text-xl font-bold text-white">
                             <Leaf className="text-green-400" />
                             <span>Daily Pi Mart</span>
-                        </NavLink>
+                        </ReactRouterDOM.NavLink>
                         <p className="text-sm">Your one-stop shop for fresh groceries, powered by the Pi Network.</p>
                     </div>
 
@@ -21,10 +23,10 @@ export const Footer: React.FC = () => {
                     <div>
                         <h3 className="font-semibold text-white mb-4">Quick Links</h3>
                         <ul className="space-y-2 text-sm">
-                            <li><NavLink to="/" className="hover:text-white">Home</NavLink></li>
-                            <li><NavLink to="/products" className="hover:text-white">Products</NavLink></li>
-                            <li><NavLink to="/orders" className="hover:text-white">My Orders</NavLink></li>
-                            <li><NavLink to="/account" className="hover:text-white">Account</NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/" className="hover:text-white">Home</ReactRouterDOM.NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/products" className="hover:text-white">Products</ReactRouterDOM.NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/orders" className="hover:text-white">My Orders</ReactRouterDOM.NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/account" className="hover:text-white">Account</ReactRouterDOM.NavLink></li>
                         </ul>
                     </div>
 
@@ -34,8 +36,8 @@ export const Footer: React.FC = () => {
                         <ul className="space-y-2 text-sm">
                             <li><a href="mailto:support@dailypimart.store" className="hover:text-white">support@dailypimart.store</a></li>
                             <li className="text-gray-400">123 Pioneer Plaza, Mainnet City</li>
-                            <li><NavLink to="/legal/terms" className="hover:text-white">Terms of Service</NavLink></li>
-                            <li><NavLink to="/legal/privacy" className="hover:text-white">Privacy Policy</NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/legal/terms" className="hover:text-white">Terms of Service</ReactRouterDOM.NavLink></li>
+                            <li><ReactRouterDOM.NavLink to="/legal/privacy" className="hover:text-white">Privacy Policy</ReactRouterDOM.NavLink></li>
                         </ul>
                     </div>
 

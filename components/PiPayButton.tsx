@@ -2,7 +2,8 @@ import React from 'react';
 import { usePiSDKReady } from '../hooks/usePiSDKReady';
 import { approvePayment, completePayment } from '../services/piAPI';
 import PiGuard from './PiGuard';
-import { useNavigate } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 
 interface PiPayButtonProps {
   amount: number;
@@ -17,7 +18,7 @@ interface PiPayButtonProps {
 
 const PiPayButton: React.FC<PiPayButtonProps> = ({ amount, orderId, memo, onPaymentSuccess, onPaymentError, onPaymentCancel, children, disabled }) => {
   const sdkReady = usePiSDKReady();
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
 
   const handlePayment = async () => {
     if (!sdkReady) {

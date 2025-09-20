@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+// Fix: Using namespace import for react-router-dom to address module resolution errors.
+import * as ReactRouterDOM from 'react-router-dom';
 
 const legalContent = {
   privacy: {
@@ -34,13 +36,13 @@ const legalContent = {
 };
 
 const LegalPage: React.FC = () => {
-  const { topic } = useParams<{ topic: keyof typeof legalContent }>();
+  const { topic } = ReactRouterDOM.useParams<{ topic: keyof typeof legalContent }>();
 
   if (!topic || !legalContent[topic]) {
     return (
       <div className="text-center py-20">
         <h1 className="text-3xl font-bold mb-4">Page Not Found</h1>
-        <Link to="/" className="text-blue-600 hover:underline">Return to Home</Link>
+        <ReactRouterDOM.Link to="/" className="text-blue-600 hover:underline">Return to Home</ReactRouterDOM.Link>
       </div>
     );
   }
